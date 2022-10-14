@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite thread-count="2" name="AgileCrmTestNGTestSuite">
+  <test name="RegressionTest">
+  	<parameter name="browser" value="edge">
+	<listeners>
+		<listener class-name = "com.AgileCrmAutomation.TestListeners"></listener>
+	</listeners>
+	  	<classes>
+	  		<class name="com.ExampleTestPages.DemoTestNG"></class>
+<!--	  	<class name="com.AgileCrmAutomation.AmazonAppliancesNames"></class>	-->
+	  	</classes>
+	  </parameter>
+	</test>
+<!--
+  </test>  
+  <test name="SanityTest">
+	<parameter name="browser" value="edge"></parameter>
+	  	<classes>
+	  		<class name="com.AgileCrmAutomation.LinkVerification"></class>
+	  		<class name="com.AgileCrmAutomation.AmazonRightClick"></class>
+	  	</classes>
+  </test> 
+-->
+</suite> <!-- AgileCrmTestNGTestSuite -->
