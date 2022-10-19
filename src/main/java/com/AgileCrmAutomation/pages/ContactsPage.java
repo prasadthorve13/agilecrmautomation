@@ -48,6 +48,7 @@ public class ContactsPage extends BaseClass
 	private By listViewContacts = By.xpath("//a[@data='list']");
 	private By gridViewContacts = By.xpath("//a[@data='grid']");
 	
+	private By contactsFilterButton = By.xpath("//div[@id='contacts-view-options']/following::a//span[text()='Filters']");
 	private By contactsTagsFilter = By.xpath("//div[@class='panel-body']//a[contains(text(),'Tags')]");
 	private By filterContactsByTags = By.xpath("//div[@class='panel-body']//a[contains(text(),'Tags')]//following-sibling::div//div[contains(@class,'contact-filter')]/select[@id='tags-filter']");
 	private By filterContactsTagsValue = By.xpath("//span[@id='RHS']/input[@id='temp-1']");
@@ -63,50 +64,21 @@ public class ContactsPage extends BaseClass
 	private By contactsCountryFilter = By.xpath("//div[@class='panel-body']//a[contains(text(),'Country')]");
 	private By filterContactsByCountry = By.xpath("//div[@class='panel-body']//a[contains(text(),'Country')]/following-sibling::div//div/select[@id='between_filter']");
 	private By filterContactsCountryValue = By.xpath("//div[@class='panel-body']//a[contains(text(),'Country')]/following-sibling::div//div/select[@id='between_filter']/following-sibling::div//select");
-	
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-	@FindBy(id="LHS")
-	private By contactUpdateField;
-
-	@FindBy(xpath="//div[@id='RHS']/input")
-	private By contactUpdateFieldValue;
-	
-	@FindBy(id="fname")
-	private By contactFirstName;
-
-	@FindBy(id="lname")
-	private By contactLastName;
-	
-	@FindBy(id="job_title")
-	private By contactJobTitle;
-	
-	@FindBy(id="contact_company")
-	private By contactCompany;
-	
-	@FindBy(id="email")
-	private By contactEmail;
-	
-	@FindBy(id="phone")
-	private By contactPhone;
-	
-	@FindBy(id="tags-new-person")
-	private By contactTags;
-	
-	@FindBy(id="website_field_length")
-	private By contactWebsite;
-	
-	@FindBy(id="address")
-	private By contactAddress;
-	
-	@FindBy(id="city")
-	private By contactCity;
-	
-	@FindBy(id="state")
-	private By contactState;
-	
-	@FindBy(id="zip")
-	private By contactZip;
-	
+	private By contactUpdateField = By.id("LHS");
+	private By contactUpdateFieldValue = By.xpath("//div[@id='RHS']/input");
+	private By contactFirstName = By.id("fname");
+	private By contactLastName = By.id("lname");
+	private By contactJobTitle = By.id("job_title");
+	private By contactCompany = By.id("contact_company");
+	private By contactEmail = By.id("email");
+	private By contactPhone = By.id("phone");
+	private By contactTags = By.id("tags-new-person");
+	private By contactWebsite = By.id("website_field_length");
+	private By contactAddress = By.id("address");
+	private By contactCity = By.id("city");
+	private By contactState = By.id("state");
+	private By contactZip = By.id("zip");
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 	public void addContact(String fname,String lname,String jobTitle,String company,String email,String phone,String tag) throws InterruptedException
 	{
@@ -318,6 +290,7 @@ public class ContactsPage extends BaseClass
 	public void filters(String filterName, String filterType, String filterValue)
 	{
 		click(contactsMenuOption, "Click on Contacts Menu!!!");
+//		click(contactsFilterButton, "Click on Filters button to show filters tab");
 		switch(filterName)
 		{
 			case "Tags":

@@ -21,8 +21,11 @@ public class CompanyPage extends BaseClass
 	private By companyMenuOption = By.id("companiesmenu");
 	private By addCompanyButton = By.xpath("//button[contains(text(),'Add Company')]");  
 	private By deleteButton = By.xpath("//button[contains(text(), 'Delete')]");
+	private By addTagsButton = By.xpath("//button[text()='Add Tags']");
+	private By removeBulkTagsButton = By.id("bulk-tags-remove");
 	private By selectAllCheckbox = By.xpath("By.xpath(\"//span[@id='companies-list-view-checkbox']//input\")");
 	private By continueCompanyEditingButton = By.id("continue-company");
+	private By editCompanyButton = By.xpath("//div[@class='contact-lhs-actions']/a/i[contains(@class,'edit')]");
 	private By companyEmailDropDown = By.xpath("//div[contains(@class,'col-sm-9  hide')]/following::div//select[@name='email-select']");
 	private By companyPhoneDropDown = By.xpath("//div[contains(@class,'col-sm-9 second')]//select[@name='phone-select']");
 	private By companyWebsiteDropDown = By.xpath("//div[contains(@class,'col-sm-9 second')]//select[@name='website-select']");
@@ -54,6 +57,8 @@ public class CompanyPage extends BaseClass
 	private By companyUpdateField = By.id("LHS");
 	private By companyUpdateFieldValue = By.xpath("//div[@id='RHS']/input");
 	private By companyCountryUpdateField = By.id("RHS");
+	private By addBulkTagsButton = By.id("addBulkTags");
+	private By addTagButton = By.xpath("//a[text()='Add Tag']");
 	private String destcompanyName;
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 	public void addCompany(String companyName, String companyUrl, String tag, String companyEmail, String companyPhone, String companyWebsite, String companyAddress, String city, String state, String zip)
@@ -83,7 +88,21 @@ public class CompanyPage extends BaseClass
 		driver.findElement(companyState).sendKeys(state);														//State
 		driver.findElement(companyZip).sendKeys(zip);															//Zip
 		selectDropDownByValue(driver.findElement(companyCountry), "IN");										//Country DropDown				
-		clickAction(driver.findElement(addCompanyUpdateButton), "Update Button!!!");
+		clickAction(addCompanyUpdateButton, "Update Button!!!");
+		destcompanyName = driver.findElement(By.xpath("//a[normalize-space()='"+companyName+"']")).getText();
+		Assert.assertEquals(companyName, destcompanyName);
+	}
+//------------------------------------------------------------------------------------------------------------------------------------------------------		
+	public void editCompany(String companyName, String city, String state)
+	{
+		click(companyMenuOption, "Click on Company Menu!!!");
+		click(By.xpath("//a[normalize-space()='"+companyName+"']"), "Click on Particular Company!!!");
+		click(editCompanyButton, "Click on Edit Company Button!!!");
+		fluentWait(companyCity, "Waiting for City...");
+		driver.findElement(companyCity).sendKeys(city);											//City
+		driver.findElement(companyState).sendKeys(state);									//State
+		click(addCompanyUpdateButton,"Click on Update Button!!!");
+		System.out.println("Contact Updated Successfully!!!");
 		destcompanyName = driver.findElement(By.xpath("//a[normalize-space()='"+companyName+"']")).getText();
 		Assert.assertEquals(companyName, destcompanyName);
 	}
@@ -164,6 +183,24 @@ public class CompanyPage extends BaseClass
 			default:
 				System.out.println("Compaines are Sorted by Created Date in descending order, by default!!!");
 		}
+	}
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+	public void addBulkTags(String tag1, String tag2, String tag3)
+	{
+		selectAllCheckBox();
+		click(addTagsButton, "Click on 'Add Tags' button!!!");
+		sendKeysAction(driver.findElement(addBulkTagsButton), tag1+","+tag2+","+tag3+",");
+		click(addTagButton, "Click on 'Add Tag' button!!!");
+		System.out.println("Bulk Tags added Successfully!!!");
+	}
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+	public void removeBulkTags(String tag1, String tag2, String tag3)
+	{
+		selectAllCheckBox();
+		click(removeBulkTagsButton, "Click on 'Remove Tags' button!!!");
+		sendKeysAction(driver.findElement(removeBulkTagsButton), tag1+","+tag2+","+tag3+",");
+		click(removeBulkTagsButton, "Click on 'Remove' button!!!");
+		System.out.println("Bulk Tags removed Successfully!!!");
 	}
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 	public void bulkUpdateCompaniesDetails(String fieldToUpdate, String valueOfField)

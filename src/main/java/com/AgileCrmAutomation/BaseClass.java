@@ -36,6 +36,11 @@ public class BaseClass
 	public static Select select;
 	public static Actions action;
 	public ExtentTest logger;
+	PropertyHandlingClass prophandling = new PropertyHandlingClass();
+	String username = prophandling.getValues("username");
+	String password = prophandling.getValues("password");
+	String browser = prophandling.getValues("browser");
+	String url = prophandling.getValues("agilecrm");
 //-------------------------------------------------------------------------------------------------------------------------------------------------------	
 	public By searchIconButton = By.xpath("//div[contains(@class,'searchicon')]/button");
 	private By searchFeatureAllLabel = By.xpath("//input[@name='all']/following-sibling::i");
