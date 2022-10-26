@@ -21,6 +21,6 @@ public class DashboardTest extends BaseClass
   @Test
   public void verifyEvent() 
   {
-	  dashboard.createEvent();
+	  dashboard.createEvent("Demo Event", "Normal", "Rescheduled", "vijayraj", "01:00", "10:00");
   }
 }
